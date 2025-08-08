@@ -57,8 +57,8 @@ export default function App() {
       <View style={[styles.header, isSmall && styles.headerSmall]}>
         <View style={styles.headerLeft}>
           <Image
-            source={require('./assets/logo-wide.png')}
-            accessibilityLabel="SLS logo"
+            source={require('./assets/favicon.png')}
+            accessibilityLabel="SLS mark"
             resizeMode="contain"
             style={[styles.headerLogo, isSmall && styles.headerLogoSmall]}
           />
@@ -894,7 +894,7 @@ const styles = StyleSheet.create({
   },
   logoWrap: {
     width: '100%',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     marginBottom: 12,
   },
   logo: {
