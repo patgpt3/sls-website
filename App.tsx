@@ -9,6 +9,7 @@ import {
   Pressable,
   Linking,
   useWindowDimensions,
+  Image,
 } from 'react-native';
 import {
   useFonts,
@@ -44,6 +45,16 @@ export default function App() {
       </View>
       <View style={styles.divider} />
       <ScrollView contentContainerStyle={styles.contentContainer}>
+        {Boolean(process.env.EXPO_PUBLIC_LOGO_URL) && (
+          <View style={styles.logoWrap}>
+            <Image
+              source={{ uri: String(process.env.EXPO_PUBLIC_LOGO_URL) }}
+              accessibilityLabel="SLS logo"
+              resizeMode="contain"
+              style={[styles.logo, isSmall && styles.logoSmall]}
+            />
+          </View>
+        )}
         <Text style={[styles.h1, isSmall && styles.h1Small]}>Storage Layer Security</Text>
 
         <Text style={styles.p}>
@@ -825,14 +836,14 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch',
   },
   linkButton: {
-    backgroundColor: COLORS.linkBg,
+    backgroundColor: COLORS.text,
     paddingHorizontal: 12,
     paddingVertical: 8,
     borderRadius: 8,
   },
   linkLabel: {
     fontFamily: 'JetBrainsMono_700Bold',
-    color: COLORS.linkText,
+    color: COLORS.background,
     fontSize: 14,
   },
   divider: {
@@ -843,6 +854,19 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 24,
     gap: 12,
+  },
+  logoWrap: {
+    width: '100%',
+    alignItems: 'center',
+    marginBottom: 12,
+  },
+  logo: {
+    width: 320,
+    height: 140,
+  },
+  logoSmall: {
+    width: 220,
+    height: 96,
   },
   h1: {
     fontFamily: 'JetBrainsMono_700Bold',
