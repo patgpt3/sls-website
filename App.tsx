@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -29,6 +29,24 @@ export default function App() {
   const { width } = useWindowDimensions();
   const isSmall = width < 480;
 
+  // Set favicon on web if provided
+  useEffect(() => {
+    if (typeof document !== 'undefined') {
+      const faviconUrl =
+        (process.env.EXPO_PUBLIC_FAVICON_URL as string | undefined) ||
+        (process.env.EXPO_PUBLIC_LOGO_URL as string | undefined);
+      if (faviconUrl) {
+        let link: HTMLLinkElement | null = document.querySelector("link[rel='icon']");
+        if (!link) {
+          link = document.createElement('link');
+          link.rel = 'icon';
+          document.head.appendChild(link);
+        }
+        link.href = faviconUrl;
+      }
+    }
+  }, []);
+
   if (!fontsLoaded) {
     return null;
   }
@@ -37,7 +55,17 @@ export default function App() {
     <SafeAreaView style={styles.safeArea}>
       <StatusBar style="dark" />
       <View style={[styles.header, isSmall && styles.headerSmall]}>
-        <Text style={[styles.brand, isSmall && styles.brandSmall]}>Storage Layer Security</Text>
+        <View style={styles.headerLeft}>
+          {Boolean(process.env.EXPO_PUBLIC_LOGO_URL) && (
+            <Image
+              source={{ uri: String(process.env.EXPO_PUBLIC_LOGO_URL) }}
+              accessibilityLabel="SLS logo"
+              resizeMode="contain"
+              style={[styles.headerLogo, isSmall && styles.headerLogoSmall]}
+            />
+          )}
+          <Text style={[styles.brand, isSmall && styles.brandSmall]}>Storage Layer Security</Text>
+        </View>
         <View style={[styles.linksRow, isSmall && styles.linksRowSmall]}>
           <HeaderLink label="Marketplace" url="https://marketplace.slsprotocol.com" />
           <HeaderLink label="Sign In" url="https://dashboard.slsprotocol.com" />
@@ -813,6 +841,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 14,
   },
+  headerLeft: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+  },
   headerSmall: {
     flexDirection: 'column',
     alignItems: 'flex-start',
@@ -854,6 +887,14 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 24,
     gap: 12,
+  },
+  headerLogo: {
+    width: 40,
+    height: 40,
+  },
+  headerLogoSmall: {
+    width: 32,
+    height: 32,
   },
   logoWrap: {
     width: '100%',
