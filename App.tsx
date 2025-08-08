@@ -872,7 +872,7 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.text,
     paddingHorizontal: 12,
     paddingVertical: 8,
-    borderRadius: 8,
+    borderRadius: 0,
   },
   linkLabel: {
     fontFamily: 'JetBrainsMono_700Bold',
