@@ -56,14 +56,12 @@ export default function App() {
       <StatusBar style="dark" />
       <View style={[styles.header, isSmall && styles.headerSmall]}>
         <View style={styles.headerLeft}>
-          {Boolean(process.env.EXPO_PUBLIC_LOGO_URL) && (
-            <Image
-              source={{ uri: String(process.env.EXPO_PUBLIC_LOGO_URL) }}
-              accessibilityLabel="SLS logo"
-              resizeMode="contain"
-              style={[styles.headerLogo, isSmall && styles.headerLogoSmall]}
-            />
-          )}
+          <Image
+            source={require('./assets/logo-wide.png')}
+            accessibilityLabel="SLS logo"
+            resizeMode="contain"
+            style={[styles.headerLogo, isSmall && styles.headerLogoSmall]}
+          />
           <Text style={[styles.brand, isSmall && styles.brandSmall]}>Storage Layer Security</Text>
         </View>
         <View style={[styles.linksRow, isSmall && styles.linksRowSmall]}>
@@ -73,16 +71,14 @@ export default function App() {
       </View>
       <View style={styles.divider} />
       <ScrollView contentContainerStyle={styles.contentContainer}>
-        {Boolean(process.env.EXPO_PUBLIC_LOGO_URL) && (
-          <View style={styles.logoWrap}>
-            <Image
-              source={{ uri: String(process.env.EXPO_PUBLIC_LOGO_URL) }}
-              accessibilityLabel="SLS logo"
-              resizeMode="contain"
-              style={[styles.logo, isSmall && styles.logoSmall]}
-            />
-          </View>
-        )}
+        <View style={styles.logoWrap}>
+          <Image
+            source={require('./assets/logo-wide.png')}
+            accessibilityLabel="SLS logo"
+            resizeMode="contain"
+            style={[styles.logo, isSmall && styles.logoSmall]}
+          />
+        </View>
         <Text style={[styles.h1, isSmall && styles.h1Small]}>Storage Layer Security</Text>
 
         <Text style={styles.p}>
